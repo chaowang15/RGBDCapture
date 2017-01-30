@@ -1,7 +1,7 @@
 # RGBDCapture
 This code is to capture RGB-D data with one OpenNI-supported depth cameras (Kinect, Asus XTion, etc). Specifically, this code can
 
-* capture RGB-D data in a single compressed .klg log file (refer to source codes of [ElasticFusion] (https://github.com/mp3guy/ElasticFusion/blob/master/README.md) for more details about KLG format).
+* capture RGB-D data in a single compressed .klg log file (refer to [ElasticFusion] (https://github.com/mp3guy/ElasticFusion/blob/master/README.md) for more details about KLG format).
 
 * decompress the .klg file into png images in [TUM format RGB-D data] (http://vision.in.tum.de/data/datasets/rgbd-dataset/file_formats).
 
