@@ -1,57 +1,69 @@
-#include "openni2interface.h"
+#include "OpenNISensor.h"
 
 void printUsage(){
-	cout <<"Usage: matterportscan [-option] [filename] [flagShowImage]" << endl;
-	cout <<"-option:" << endl
-		<<"   -c: use depth devices to scan and compress RGBD data into a klg file" << endl
-		<<"   -d: decompress the klg file into png images and save them into local folder" << endl;
-	cout <<"filename: klg filename to be compressed or decompressed. Default filename is \"saved.klg\"" << endl;
-	cout <<"flagShowImage: flag for showing images (true by default) or not. " << endl;
+	cout << "Usage: " << endl
+		<< "   RGBDCapture [-option] [-camera] [filename]" << endl << endl;
+	cout << "-option:" << endl
+		<< "   -c: use depth devices to scan and compress RGBD data into a KLG log file (by default)" << endl
+		<< "   -d: decompress the klg file into png images" << endl;
+	cout << "-camera:" << endl
+		<< "   -kinect: Microsoft Kinect v1 (by default)" << endl
+		<< "   -asus: Asus XTion" << endl
+		<< "   -intel: Intel realscene (currently not supported)" << endl
+		<< "   -kinect2: Microsoft Kinect v2 (currently not supported)" << endl;
+	cout << "filename: " << endl
+		<< "   KLG file (\"saved.klg\" by default)" << endl << endl;
+	cout << "For instance:" << endl
+		<< "    RGBDCapture -c -kinect rgbd.klg" << endl
+		<< "    RGBDCapture -d rgbd.klg" << endl << endl;
 }
+
 
 int main(int argc, char** argv)
 {
-	if (argc == 1 || argc == 2)
+	if (argc > 4)
 	{
-		if (argc == 1 || (argc == 2 && string(argv[1]) == "-c"))
+		printUsage();
+		return EXIT_FAILURE;
+	}
+	string cameraType("-kinect"), filename("saved.klg");
+	if (argc >= 2)
+	{
+		string option(argv[1]);
+		if (option == "-d")
 		{
-			OpenNI2Interface openni2interface;
-			openni2interface.initKinectDevice();
-			string filename("saved.klg");
-			openni2interface.setFilename(filename);
-			openni2interface.run();
+			if (argc == 3) 
+				filename = string(argv[2]);
+			DataCompression dataComp;
+			dataComp.decompressKLG(filename);
 			return 0;
 		}
-		if (argc == 2 && string(argv[1]) == "-d")
+		else if (option == "-c")
 		{
-			OpenNI2Interface openni2interface;
-			openni2interface.decompressLog("saved.klg");
-			return 0;
+			if (argc >= 3)
+				cameraType = string(argv[2]);
+			if (argc == 4)
+				filename = string(argv[3]);
+		}
+		else
+		{
+			printUsage();
+			return EXIT_FAILURE;
 		}
 	}
-	if (argc == 3 || argc == 4)
+	
+
+	RGBDSensor* sensor = nullptr;
+	if (cameraType == "-kinect" || cameraType == "-asus")
 	{
-		if (string(argv[1]) == "-c")
-		{
-			OpenNI2Interface openni2interface;
-			openni2interface.initKinectDevice();
-			string filename(argv[2]);
-			openni2interface.setFilename(string(argv[2]));
-			if (argc == 4 && string(argv[3]) == "false")
-				openni2interface.setFlagShowImage(false);
-			openni2interface.run();
-			return 0;
-		}
-		else if (string(argv[1]) == "-d")
-		{
-			OpenNI2Interface openni2interface;
-			if (argc == 4 && string(argv[3]) == "false")
-				openni2interface.setFlagShowImage(false);
-			openni2interface.decompressLog(argv[2]);
-			return 0;
-		}
+		sensor = new OpenNISensor();
+		sensor->scan(filename);
 	}
-	printUsage();
+	if (sensor)
+	{
+		delete sensor;
+		sensor = nullptr;
+	}		
 
 	return 0;
 }
