@@ -15,11 +15,12 @@ This code is compiled and tested successfully in Visual Studio 2013.
 
 ##Usage:
 ```bash
-RGBDCapture -option [rgbdfilename]
+RGBDCapture [-option] [-camera] [klgFilename]
 ```
 where
-* -option: *-c* to use depth camera to scan, *-d* to decompress the klg file
-* rgbdfilename: filename of the .klg log file ( *saved.klg* by default)
+* -option: *-c* to use depth camera to scan (by default), *-d* to decompress the klg file
+* -camera: camera type. *-kinect* denotes Microsoft kinect v1 (by default), *-asus* Asus XTion, *-intel* Intel RealScene, *-kinect2* Microsoft Kinect v2
+* klgFilename: name of the .klg log file ( *saved.klg* by default)
 
 ##Note:
 * The decompressed png files are saved in a newly created folder whose name is the same as klg file's in the local directory.
