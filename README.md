@@ -11,6 +11,7 @@ This code is compiled and tested successfully in Visual Studio 2013.
 - OpenCV 2.4.x
 - OpenNI2
 - zlib
+- Boost (>= 1.50)
 
 ##Usage:
 ```bash
