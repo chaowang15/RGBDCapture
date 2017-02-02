@@ -1,7 +1,9 @@
 # RGBDCapture
 This code is to capture RGB-D data with a depth cameras (Kinect v1, v2, Asus XTion, Intel RealScene, etc). Specifically, this code can
+
 * capture RGB-D data in a single compressed .klg log file (see [ElasticFusion] (https://github.com/mp3guy/ElasticFusion/blob/master/README.md) as well as source codes for more details about klg format).
-* decompress the .klg file into png images in [TUM format RGB-D data] (http://vision.in.tum.de/data/datasets/rgbd-dataset/file_formats).
+
+* decompress the .klg file into png images in [TUM RGB-D data format] (http://vision.in.tum.de/data/datasets/rgbd-dataset/file_formats).
 
 This code is written in C++ and is tested successfully in Visual Studio 2013 in Windows and Ubuntu 14.04.
 
