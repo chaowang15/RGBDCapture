@@ -5,7 +5,7 @@ This code is to capture RGB-D data with a depth cameras (Kinect v1, v2, Asus XTi
 
 * decompress the .klg file into png images in [TUM format RGB-D data] (http://vision.in.tum.de/data/datasets/rgbd-dataset/file_formats).
 
-This code is compiled and tested successfully in Visual Studio 2013.
+This code is compiled and tested successfully in Visual Studio 2013 and Ubuntu 14.04.
 
 ##Dependencies:
 - OpenCV 2.4.x
