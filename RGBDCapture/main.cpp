@@ -53,7 +53,7 @@ int main(int argc, char** argv)
 	}
 	
 
-	RGBDSensor* sensor = nullptr;
+	RGBDSensor* sensor = NULL;
 	if (cameraType == "-kinect" || cameraType == "-asus")
 	{
 		sensor = new OpenNISensor();
