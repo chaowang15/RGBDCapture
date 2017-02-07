@@ -38,6 +38,7 @@ where
 * klgFilename: name of the .klg log file ( *saved.klg* by default)
 
 ##Note
+* Press ESC to quit scanning.
 * The decompressed png files are saved in a newly created folder whose name is the same as klg file's in the local directory.
 * Check the path of OPENNI2 driver files if the code cannot start.
 * Refer to [TUM format RGB-D data] (http://vision.in.tum.de/data/datasets/rgbd-dataset/file_formats) for more details about how to use the RGB and depth images.
