@@ -1,4 +1,4 @@
-# RGBDCapture
+# RGBDCapture (under construction)
 This code is to capture RGB-D data with a depth cameras (Kinect v1, v2, Asus XTion, Intel RealScene, etc). Specifically, this code can
 
 * capture RGB-D data in a single compressed .klg log file (see [ElasticFusion] (https://github.com/mp3guy/ElasticFusion/blob/master/README.md) as well as source codes for more details about klg format).
