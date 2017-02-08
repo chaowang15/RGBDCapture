@@ -1,4 +1,4 @@
-# RGBDCapture
+# RGBDCapture (under construction)
 This code is to capture RGB-D data with a depth cameras (Kinect v1, v2, Asus XTion, Intel RealScene, etc). Specifically, this code can
 
 * capture RGB-D data in a single compressed .klg log file (see [ElasticFusion] (https://github.com/mp3guy/ElasticFusion/blob/master/README.md) as well as source codes for more details about klg format).
@@ -38,6 +38,7 @@ where
 * klgFilename: name of the .klg log file ( *saved.klg* by default)
 
 ##Note
+* Press ESC to quit scanning.
 * The decompressed png files are saved in a newly created folder whose name is the same as klg file's in the local directory.
 * Check the path of OPENNI2 driver files if the code cannot start.
 * Refer to [TUM format RGB-D data] (http://vision.in.tum.de/data/datasets/rgbd-dataset/file_formats) for more details about how to use the RGB and depth images.
