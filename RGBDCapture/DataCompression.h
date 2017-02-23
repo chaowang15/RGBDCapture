@@ -6,7 +6,7 @@
 #include <stdint.h>
 #include <zlib.h>
 #include "global.h"
-#include <boost/filesystem.hpp>
+
 
 using namespace cv;
 using namespace std;
@@ -21,8 +21,6 @@ public:
 	void compressColor(cv::Vec<unsigned char, 3> * rgb_data, int width, int height);
 
 	void compressDepth(unsigned char* depthDataPtr);
-
-	void decompressKLG(string filename);
 	
 	void writeHeader(string klgFilename, int frameNum, int depthWidth, int depthHeight, int colorWidth, int colorHeight);
 

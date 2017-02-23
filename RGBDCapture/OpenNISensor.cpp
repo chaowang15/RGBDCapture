@@ -4,6 +4,7 @@ OpenNISensor::OpenNISensor()
 {
 	m_flagInitSuccessful = m_flagShowImage = true;
 	m_frameNum = m_frameIdx = 0;
+	m_sensorType = 0;
 	init();
 }
 
@@ -18,7 +19,7 @@ OpenNISensor::~OpenNISensor()
 }
 
 
-void OpenNISensor::init()
+bool OpenNISensor::init()
 {
 	openni::Status rc = openni::STATUS_OK;
 	rc = openni::OpenNI::initialize();
@@ -27,7 +28,7 @@ void OpenNISensor::init()
 		std::cerr << "OpenNI Initial Error: " << openni::OpenNI::getExtendedError() << std::endl;
 		openni::OpenNI::shutdown();
 		m_flagInitSuccessful = false;
-		return;
+		return m_flagInitSuccessful;
 	}
 
 
@@ -38,19 +39,22 @@ void OpenNISensor::init()
 		cerr << "ERROR: Can't Open Device: " << openni::OpenNI::getExtendedError() << endl;
 		openni::OpenNI::shutdown();
 		m_flagInitSuccessful = false;
-		return;
+		return m_flagInitSuccessful;
 	}
 
+
 	rc = m_depthStream.create(m_device, openni::SENSOR_DEPTH);
+
 	if (rc == openni::STATUS_OK)
 	{
 		rc = m_depthStream.start();
+
 		if (rc != openni::STATUS_OK)
 		{
 			cerr << "ERROR: Can't start depth stream on device: " << openni::OpenNI::getExtendedError() << endl;
 			m_depthStream.destroy();
 			m_flagInitSuccessful = false;
-			return;
+			return m_flagInitSuccessful;
 		}
 	}
 	else
@@ -58,7 +62,7 @@ void OpenNISensor::init()
 		cerr << "ERROR: This device does not have depth sensor" << endl;
 		openni::OpenNI::shutdown();
 		m_flagInitSuccessful = false;
-		return;
+		return m_flagInitSuccessful;
 	}
 
 	rc = m_colorStream.create(m_device, openni::SENSOR_COLOR);
@@ -70,7 +74,7 @@ void OpenNISensor::init()
 			cerr << "ERROR: Can't start color stream on device: " << openni::OpenNI::getExtendedError() << endl;
 			m_colorStream.destroy();
 			m_flagInitSuccessful = false;
-			return;
+			return m_flagInitSuccessful;
 		}
 	}
 	else
@@ -78,10 +82,9 @@ void OpenNISensor::init()
 		cerr << "ERROR: This device does not have color sensor" << endl;
 		openni::OpenNI::shutdown();
 		m_flagInitSuccessful = false;
-		return;
-	}
-
-
+		return m_flagInitSuccessful;
+	}	
+	
 	///**
 	//Get all supported video mode for depth and color sensors, since each device
 	//always supports multiple video modes, such as 320x240/640x480 resolution,
@@ -123,7 +126,7 @@ void OpenNISensor::init()
 		cerr << "SimpleViewer: No valid streams. Exiting" << endl;
 		m_flagInitSuccessful = false;
 		openni::OpenNI::shutdown();
-		return;
+		return m_flagInitSuccessful;
 	}
 
 	openni::VideoMode depthVideoMode = m_depthStream.getVideoMode();
@@ -136,11 +139,13 @@ void OpenNISensor::init()
 	cout << "Color = (" << m_colorWidth << "," << m_colorHeight << ")" << endl;
 
 	// Set exposure if needed
-	m_colorStream.getCameraSettings()->setAutoWhiteBalanceEnabled(true);
+	m_colorStream.getCameraSettings()->setAutoWhiteBalanceEnabled(false);
 	int exposure = m_colorStream.getCameraSettings()->getExposure();
 	int delta = 100;
 	m_colorStream.getCameraSettings()->setExposure(exposure + delta);
 	m_flagInitSuccessful = true;
+
+	return m_flagInitSuccessful;
 }
 
 void OpenNISensor::scan(string klgFilename)
@@ -156,7 +161,7 @@ void OpenNISensor::scan(string klgFilename)
 	string strDepthWindowName("Depth"), strColorWindowName("Color");
 	cv::namedWindow(strDepthWindowName, CV_WINDOW_AUTOSIZE);
 	cv::namedWindow(strColorWindowName, CV_WINDOW_AUTOSIZE);
-
+	
 	while (true)
 	{
 		m_colorStream.readFrame(&m_colorFrame);
@@ -165,6 +170,8 @@ void OpenNISensor::scan(string klgFilename)
 			cv::Mat mImageRGB(m_colorHeight, m_colorWidth, CV_8UC3, (void*)m_colorFrame.getData());
 			cv::Mat cImageBGR;
 			cv::cvtColor(mImageRGB, cImageBGR, CV_RGB2BGR);
+			if (m_sensorType == 0)
+				cv::flip(cImageBGR, cImageBGR, 1);
 			cv::imshow(strColorWindowName, cImageBGR);
 			dataComp.compressColor((cv::Vec<unsigned char, 3> *)m_colorFrame.getData(), m_colorWidth, m_colorHeight);
 		}
@@ -180,6 +187,8 @@ void OpenNISensor::scan(string klgFilename)
 			cv::Mat mImageDepth(m_depthHeight, m_depthWidth, CV_16UC1, (void*)m_depthFrame.getData());
 			cv::Mat mScaledDepth;
 			mImageDepth.convertTo(mScaledDepth, CV_16UC1, c_depthScaleFactor);
+			if (m_sensorType == 0)
+				cv::flip(mScaledDepth, mScaledDepth, 1);
 			cv::imshow(strDepthWindowName, mScaledDepth);
 			dataComp.compressDepth((unsigned char*)m_depthFrame.getData());
 		}

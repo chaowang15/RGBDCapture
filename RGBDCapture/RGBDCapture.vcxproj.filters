@@ -6,6 +6,7 @@
     <ClInclude Include="DataCompression.h" />
     <ClInclude Include="OpenNISensor.h" />
     <ClInclude Include="IntelRSSensor.h" />
+    <ClInclude Include="Kinect2Sensor.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -13,5 +14,6 @@
     <ClCompile Include="DataCompression.cpp" />
     <ClCompile Include="OpenNISensor.cpp" />
     <ClCompile Include="IntelRSSensor.cpp" />
+    <ClCompile Include="Kinect2Sensor.cpp" />
   </ItemGroup>
 </Project>

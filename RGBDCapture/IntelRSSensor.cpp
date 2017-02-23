@@ -10,7 +10,7 @@ IntelRSSensor::~IntelRSSensor()
 
 }
 
-void IntelRSSensor::init()
+bool IntelRSSensor::init()
 {
 	// Use constant resolutions for color and depth data while using Intel RealSense
 	m_depthWidth = c_depthWidth;
@@ -18,6 +18,8 @@ void IntelRSSensor::init()
 	m_colorWidth = c_colorWidth;
 	m_colorHeight = c_colorHeight;
 	m_frameNum = m_frameIdx = 0;
+	m_sensorType = 1;
+	return true;
 }
 
 void IntelRSSensor::scan(string klgFilename /* = "saved.klg" */)
@@ -43,7 +45,6 @@ void IntelRSSensor::scan(string klgFilename /* = "saved.klg" */)
 	// Create image compression object
 	DataCompression dataComp;
 	dataComp.writeHeader(klgFilename, m_frameNum, m_depthWidth, m_depthHeight, m_colorWidth, m_colorHeight);
-
 
 	// OpenCV variables to show images
 	string strDepthWindowName("Depth"), strColorWindowName("Color");

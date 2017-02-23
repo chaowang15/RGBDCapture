@@ -13,7 +13,7 @@ public:
 
 	~OpenNISensor();
 
-	void init();
+	bool init();
 
 	void scan(string klgFilename = "saved.klg");
 
