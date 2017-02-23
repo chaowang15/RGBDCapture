@@ -1,21 +1,19 @@
 #include "OpenNISensor.h"
+#include "Kinect2Sensor.h"
 
 void printUsage(){
 	cout << "Usage: " << endl
-		<< "   RGBDCapture [-option] [-camera] [filename]" << endl << endl;
-	cout << "-option:" << endl
-		<< "   -c: use depth devices to scan and compress RGBD data into a KLG log file (by default)" << endl
-		<< "   -d: decompress the klg file into png images" << endl;
+		<< "   RGBDCapture [-camera] [filename]" << endl << endl;
 	cout << "-camera:" << endl
 		<< "   -kinect: Microsoft Kinect v1 (by default)" << endl
 		<< "   -asus: Asus XTion" << endl
 		<< "   -intel: Intel realscene (currently not supported)" << endl
 		<< "   -kinect2: Microsoft Kinect v2 (currently not supported)" << endl;
 	cout << "filename: " << endl
-		<< "   KLG file (\"saved.klg\" by default)" << endl << endl;
+		<< "   KLG filename (\"saved.klg\" by default)" << endl << endl;
 	cout << "For instance:" << endl
-		<< "    RGBDCapture -c -kinect rgbd.klg" << endl
-		<< "    RGBDCapture -d rgbd.klg" << endl << endl;
+		<< "    RGBDCapture -kinect" << endl
+		<< "    RGBDCapture -kinect2 rgbd.klg" << endl << endl;
 }
 
 
@@ -35,7 +33,7 @@ int main(int argc, char** argv)
 			if (argc == 3) 
 				filename = string(argv[2]);
 			DataCompression dataComp;
-			dataComp.decompressKLG(filename);
+			//dataComp.decompressKLG(filename);
 			return 0;
 		}
 		else if (option == "-c")
@@ -57,6 +55,11 @@ int main(int argc, char** argv)
 	if (cameraType == "-kinect" || cameraType == "-asus")
 	{
 		sensor = new OpenNISensor();
+		sensor->scan(filename);
+	}
+	else if (cameraType == "-kinect2")
+	{
+		sensor = new Kinect2Sensor();
 		sensor->scan(filename);
 	}
 	if (sensor)
