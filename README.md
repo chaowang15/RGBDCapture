@@ -27,6 +27,7 @@ where *-camera*:
 * -asus: Asus XTion
 * -intel: Intel realscene
 * -kinect2: Microsoft Kinect v2
+
 ##Note
 * Press ESC to quit scanning.
 * The RGB-D data will be saved in a newly created folder named "saveX", where X is a counting number starting from 0.
