@@ -7,8 +7,8 @@ This code is written in C++ and is tested successfully in Visual Studio 2013 in 
 - OpenCV 2.4.X -- render and write images
 - OpenNI2 -- driver
 - Boost (>= 1.50) -- create folders
-- cmake -- required for Linux
-- Kinect v2 driver -- Kinect for Windows SDK 2.0 (Windows) or libfreenect2 (Linux)
+- cmake -- compile codes (only required in Linux)
+- Kinect v2 driver -- Kinect for Windows SDK 2.0 (Windows) or libfreenect2 (Linux, currently not supported)
 
 ##Build
 To compile the code:
