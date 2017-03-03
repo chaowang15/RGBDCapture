@@ -3,7 +3,11 @@
 
 #include "RGBDSensor.h"
 #include "global.h"
-#include "DataCompression.h"
+#include <opencv2/opencv.hpp>
+
+#ifndef SAFE_DELETE_ARRAY
+#define SAFE_DELETE_ARRAY(p) { if (p) { delete[] (p);   (p)=NULL; } }
+#endif
 
 #if defined(WIN32) || defined(_WIN32)
 #include <Kinect.h>
@@ -45,7 +49,7 @@ public:
 
 	bool init();
 
-	void scan(string klgFilename = "saved.klg");
+	void scan();
 
 private:
 	bool captureDepthAndColor();

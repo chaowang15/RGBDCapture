@@ -4,8 +4,8 @@
 #include "RGBDSensor.h"
 #include <rs.hpp>
 #include <zlib.h>
-#include "DataCompression.h"
 #include "global.h"
+#include <opencv2/opencv.hpp>
 
 class IntelRSSensor : public RGBDSensor
 {
@@ -16,7 +16,7 @@ public:
 
 	bool init();
 
-	void scan(string klgFilename = "saved.klg");
+	void scan();
 
 private:
 

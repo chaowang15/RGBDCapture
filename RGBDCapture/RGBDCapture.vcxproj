@@ -137,27 +137,25 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;_LIB;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(OPENCV_DIR)\include;$(OPENNI2_INCLUDE64);$(ZLIB_DIR)\include;librealsense;$(KINECTSDK20_DIR)\inc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(OPENCV_DIR)\include;$(OPENNI2_INCLUDE64);$(ZLIB_DIR)\include;librealsense;$(KINECTSDK20_DIR)\inc;$(BOOST_DIR);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalLibraryDirectories>$(OPENCV_DIR)\x64\vc12\lib;$(OPENNI2_LIB64);$(ZLIB_DIR)\lib;$(KINECTSDK20_DIR)\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>opencv_core249.lib;opencv_imgproc249.lib;opencv_highgui249.lib;opencv_ml249.lib;opencv_video249.lib;opencv_features2d249.lib;opencv_calib3d249.lib;opencv_objdetect249.lib;opencv_contrib249.lib;opencv_legacy249.lib;opencv_flann249.lib;opencv_nonfree249.lib;OpenNI2.lib;zdll.lib;librealsense/realsense.lib;kinect20.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(OPENCV_DIR)\x64\vc12\lib;$(OPENNI2_LIB64);$(ZLIB_DIR)\lib;$(KINECTSDK20_DIR)\lib\x64;$(BOOST_LIB);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>opencv_core249.lib;opencv_imgproc249.lib;opencv_highgui249.lib;opencv_ml249.lib;opencv_video249.lib;opencv_features2d249.lib;opencv_calib3d249.lib;opencv_objdetect249.lib;opencv_contrib249.lib;opencv_legacy249.lib;opencv_flann249.lib;opencv_nonfree249.lib;OpenNI2.lib;zdll.lib;librealsense/realsense.lib;kinect20.lib;boost_filesystem-vc120-1_55.lib;boost_system-vc120-1_55.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="global.h" />
-    <ClInclude Include="DataCompression.h" />
     <ClInclude Include="IntelRSSensor.h" />
     <ClInclude Include="Kinect2Sensor.h" />
     <ClInclude Include="OpenNISensor.h" />
     <ClInclude Include="RGBDSensor.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="DataCompression.cpp" />
     <ClCompile Include="IntelRSSensor.cpp" />
     <ClCompile Include="Kinect2Sensor.cpp" />
     <ClCompile Include="main.cpp" />

@@ -2,6 +2,8 @@
 
 Kinect2Sensor::Kinect2Sensor()
 {
+	m_frameIdx = 0;
+
 	// Kinect v2 has fixed resolution
 	m_colorHeight = 1080;
 	m_colorWidth = 1920;
@@ -80,20 +82,24 @@ bool Kinect2Sensor::init()
 #endif
 }
 
-void Kinect2Sensor::scan(string klgFilename)
+void Kinect2Sensor::scan()
 {
 	if (!m_flagInitSuccessful)
 	{
-		throw MLIB_EXCEPTION("WARNING: Failed to initialize kinect v2. Quitting...");
+		cout << "WARNING: initiailization is failed! Quitting ..." << endl;
 		return;
 	}
+
+	createRGBDFolders();
+	// Two other folders to hold the rgb-depth and depth-rgb mapping images
+	boost::filesystem::create_directory(m_strRGBDFolder + "/rgb-depth/");
+	boost::filesystem::create_directory(m_strRGBDFolder + "/depth-rgb/");
 
 	string strDepthWindowName("Depth"), strColorWindowName("Color");
 	cv::namedWindow(strDepthWindowName, CV_WINDOW_AUTOSIZE);
 	cv::namedWindow(strColorWindowName, CV_WINDOW_AUTOSIZE);
 
 #if defined(WIN32) || defined(_WIN32)
-
 	while (true)
 	{
 		if (captureDepthAndColor())
@@ -102,8 +108,10 @@ void Kinect2Sensor::scan(string klgFilename)
 			cv::Mat cDepthImage(m_depthHeight, m_depthWidth, CV_16UC1, (void*)m_pDepth);
 			cv::Mat cScaledDepthImage;
 			cDepthImage.convertTo(cScaledDepthImage, CV_16UC1, c_depthScaleFactor);
+			// NOTE to flip the image, since the raw data is mirrored
 			cv::flip(cScaledDepthImage, cScaledDepthImage, 1);
 			cv::imshow(strDepthWindowName, cScaledDepthImage);
+			cv::imwrite(m_strRGBDFolder + "/depth/" + to_string(m_frameIdx) + ".png", cScaledDepthImage);
 
 			// color image
 			cv::Mat cBGRAImage(m_colorHeight, m_colorWidth, CV_8UC4, (void*)m_pColor);
@@ -111,21 +119,25 @@ void Kinect2Sensor::scan(string klgFilename)
 			cv::cvtColor(cBGRAImage, cBGRImage, CV_BGRA2BGR);
 			cv::flip(cBGRImage, cBGRImage, 1);
 			cv::imshow(strColorWindowName, cBGRImage);
+			cv::imwrite(m_strRGBDFolder + "/rgb/" + to_string(m_frameIdx) + ".png", cBGRImage);
+
 
 			// depth-color mapping image
 			cv::Mat cDepth2BGRAImage(m_depthHeight, m_depthWidth, CV_8UC4, (void*)m_pDepthColor);
 			cv::Mat cDepth2BGRImage;
 			cv::cvtColor(cDepth2BGRAImage, cDepth2BGRImage, CV_BGRA2BGR);
 			cv::flip(cDepth2BGRImage, cDepth2BGRImage, 1);
-			cv::imwrite("depth-color.png", cDepth2BGRImage);
+			cv::imwrite(m_strRGBDFolder + "/depth-rgb/" + to_string(m_frameIdx) + ".png", cDepth2BGRImage);
+
 
 			// color-depth mapping image
 			cv::Mat cBGRA2DepthImage(m_colorHeight, m_colorWidth, CV_16UC1, (void*)m_pColorDepth);
 			cv::Mat cScaledBGRA2DepthImage;
 			cBGRA2DepthImage.convertTo(cScaledBGRA2DepthImage, CV_16UC1, c_depthScaleFactor);
 			cv::flip(cScaledBGRA2DepthImage, cScaledBGRA2DepthImage, 1);
-			cv::imwrite("color-depth.png", cScaledBGRA2DepthImage);
+			cv::imwrite(m_strRGBDFolder + "/rgb-depth/" + to_string(m_frameIdx) + ".png", cScaledBGRA2DepthImage);
 
+			m_frameIdx++;
 			if (cv::waitKey(1) == 27) // esc to quit
 			{
 				// Actually current frame index is the total number of frames
@@ -133,14 +145,10 @@ void Kinect2Sensor::scan(string klgFilename)
 				break;
 			}
 		}
-
 	}
 
-
-
-
-
 #elif defined (LINUX) || defined(__linux__)
+
 #endif
 }
 

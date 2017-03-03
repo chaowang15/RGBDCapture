@@ -2,9 +2,9 @@
 #define OPENNISENSOR_H
 
 #include "RGBDSensor.h"
-#include "DataCompression.h"
 #include "global.h"
 #include "OpenNI.h"
+#include <opencv2/opencv.hpp>
 
 class OpenNISensor : public RGBDSensor
 {
@@ -15,7 +15,7 @@ public:
 
 	bool init();
 
-	void scan(string klgFilename = "saved.klg");
+	void scan();
 
 private:
 	openni::Device			m_device;

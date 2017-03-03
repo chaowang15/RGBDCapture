@@ -148,15 +148,14 @@ bool OpenNISensor::init()
 	return m_flagInitSuccessful;
 }
 
-void OpenNISensor::scan(string klgFilename)
+void OpenNISensor::scan()
 {
 	if (!m_flagInitSuccessful){
 		cout << "WARNING: initialize the device at first!" << endl;
 		return;
 	}
 
-	DataCompression dataComp;
-	dataComp.writeHeader(klgFilename, m_frameNum, m_depthWidth, m_depthHeight, m_colorWidth, m_colorHeight);
+	createRGBDFolders();
 
 	string strDepthWindowName("Depth"), strColorWindowName("Color");
 	cv::namedWindow(strDepthWindowName, CV_WINDOW_AUTOSIZE);
@@ -173,7 +172,7 @@ void OpenNISensor::scan(string klgFilename)
 			if (m_sensorType == 0)
 				cv::flip(cImageBGR, cImageBGR, 1);
 			cv::imshow(strColorWindowName, cImageBGR);
-			dataComp.compressColor((cv::Vec<unsigned char, 3> *)m_colorFrame.getData(), m_colorWidth, m_colorHeight);
+			cv::imwrite(m_strRGBDFolder + "/rgb/" + to_string(m_frameIdx) + ".png", cImageBGR);
 		}
 		else
 		{
@@ -185,12 +184,12 @@ void OpenNISensor::scan(string klgFilename)
 		if (m_depthFrame.isValid())
 		{
 			cv::Mat mImageDepth(m_depthHeight, m_depthWidth, CV_16UC1, (void*)m_depthFrame.getData());
-			cv::Mat mScaledDepth;
-			mImageDepth.convertTo(mScaledDepth, CV_16UC1, c_depthScaleFactor);
+			cv::Mat cScaledDepth;
+			mImageDepth.convertTo(cScaledDepth, CV_16UC1, c_depthScaleFactor);
 			if (m_sensorType == 0)
-				cv::flip(mScaledDepth, mScaledDepth, 1);
-			cv::imshow(strDepthWindowName, mScaledDepth);
-			dataComp.compressDepth((unsigned char*)m_depthFrame.getData());
+				cv::flip(cScaledDepth, cScaledDepth, 1);
+			cv::imshow(strDepthWindowName, cScaledDepth);
+			cv::imwrite(m_strRGBDFolder + "/depth/" + to_string(m_frameIdx) + ".png", cScaledDepth);
 		}
 		else
 		{
@@ -198,13 +197,9 @@ void OpenNISensor::scan(string klgFilename)
 			return;
 		}
 
-		dataComp.writeBody(m_frameIdx);
 		m_frameIdx++;
-		
 		if (cv::waitKey(1) == 27) // esc to quit
 		{
-			// Actually current frame index is the total number of frames
-			dataComp.closeKLGFile(m_frameIdx);
 			break;
 		}
 	}

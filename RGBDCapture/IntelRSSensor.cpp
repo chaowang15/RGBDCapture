@@ -13,16 +13,17 @@ IntelRSSensor::~IntelRSSensor()
 bool IntelRSSensor::init()
 {
 	// Use constant resolutions for color and depth data while using Intel RealSense
-	m_depthWidth = c_depthWidth;
-	m_depthHeight = c_depthHeight;
-	m_colorWidth = c_colorWidth;
-	m_colorHeight = c_colorHeight;
+	m_depthWidth = 640;
+	m_depthHeight = 480;
+	m_colorWidth = 640;
+	m_colorHeight = 480;
+	m_fps = 30;
 	m_frameNum = m_frameIdx = 0;
 	m_sensorType = 1;
 	return true;
 }
 
-void IntelRSSensor::scan(string klgFilename /* = "saved.klg" */)
+void IntelRSSensor::scan()
 {
 	// Create a context object. This object owns the handles to all connected realsense devices.
 	rs::context ctx;
@@ -42,9 +43,7 @@ void IntelRSSensor::scan(string klgFilename /* = "saved.klg" */)
 	dev->enable_stream(rs::stream::color, m_colorWidth, m_colorHeight, rs::format::rgb8, m_fps);
 	dev->start();
 
-	// Create image compression object
-	DataCompression dataComp;
-	dataComp.writeHeader(klgFilename, m_frameNum, m_depthWidth, m_depthHeight, m_colorWidth, m_colorHeight);
+	createRGBDFolders();
 
 	// OpenCV variables to show images
 	string strDepthWindowName("Depth"), strColorWindowName("Color");
@@ -65,9 +64,7 @@ void IntelRSSensor::scan(string klgFilename /* = "saved.klg" */)
 		cv::Mat cImageBGR;
 		cv::cvtColor(mImageRGB, cImageBGR, CV_RGB2BGR);
 		cv::imshow(strColorWindowName, cImageBGR);
-
-		// Compress color image 
-		dataComp.compressColor((cv::Vec<unsigned char, 3> *)color_image, m_colorWidth, m_colorHeight);
+		cv::imwrite(m_strRGBDFolder + "/rgb/" + to_string(m_frameIdx) + ".png", cImageBGR);
 
 		// Retrieve depth image
 		//const uint16_t * depth_image = (const uint16_t *)dev->get_frame_data(rs::stream::depth);
@@ -78,19 +75,14 @@ void IntelRSSensor::scan(string klgFilename /* = "saved.klg" */)
 		cv::Mat mScaledDepth;
 		mImageDepth.convertTo(mScaledDepth, CV_16UC1, c_depthScaleFactor); // with scale
 		cv::imshow(strDepthWindowName, mScaledDepth);
-
-		// Compress depth image
-		dataComp.compressDepth((unsigned char*)depth_image);
+		cv::imwrite(m_strRGBDFolder + "/depth/" + to_string(m_frameIdx) + ".png", mScaledDepth);
 
 		// Write compressed color and depth data into klg file
-		dataComp.writeBody(m_frameIdx);
 		m_frameIdx++;
 		//cout << "Frame " << m_frameIdx << "..." << endl;
 
 		if (cv::waitKey(1) == 27) // esc to quit
 		{
-			// Actually current frame index is the total number of frames
-			dataComp.closeKLGFile(m_frameIdx);
 			break;
 		}
 	}

@@ -5,8 +5,6 @@ VisualStudioVersion = 12.0.40629.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "RGBDCapture", "RGBDCapture\RGBDCapture.vcxproj", "{5F42EA5C-7577-4886-8122-CD284316A6DA}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "RGBDConverter", "RGBDConverter\RGBDConverter.vcxproj", "{B0CAA9F3-F89A-40E2-9473-C47DA0CB1A4D}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Mixed Platforms = Debug|Mixed Platforms
@@ -29,18 +27,6 @@ Global
 		{5F42EA5C-7577-4886-8122-CD284316A6DA}.Release|Win32.Build.0 = Release|Win32
 		{5F42EA5C-7577-4886-8122-CD284316A6DA}.Release|x64.ActiveCfg = Release|x64
 		{5F42EA5C-7577-4886-8122-CD284316A6DA}.Release|x64.Build.0 = Release|x64
-		{B0CAA9F3-F89A-40E2-9473-C47DA0CB1A4D}.Debug|Mixed Platforms.ActiveCfg = Debug|Win32
-		{B0CAA9F3-F89A-40E2-9473-C47DA0CB1A4D}.Debug|Mixed Platforms.Build.0 = Debug|Win32
-		{B0CAA9F3-F89A-40E2-9473-C47DA0CB1A4D}.Debug|Win32.ActiveCfg = Debug|Win32
-		{B0CAA9F3-F89A-40E2-9473-C47DA0CB1A4D}.Debug|Win32.Build.0 = Debug|Win32
-		{B0CAA9F3-F89A-40E2-9473-C47DA0CB1A4D}.Debug|x64.ActiveCfg = Debug|x64
-		{B0CAA9F3-F89A-40E2-9473-C47DA0CB1A4D}.Release|Mixed Platforms.ActiveCfg = Release|Win32
-		{B0CAA9F3-F89A-40E2-9473-C47DA0CB1A4D}.Release|Mixed Platforms.Build.0 = Release|Win32
-		{B0CAA9F3-F89A-40E2-9473-C47DA0CB1A4D}.Release|Win32.ActiveCfg = Release|Win32
-		{B0CAA9F3-F89A-40E2-9473-C47DA0CB1A4D}.Release|Win32.Build.0 = Release|Win32
-		{B0CAA9F3-F89A-40E2-9473-C47DA0CB1A4D}.Release|x64.ActiveCfg = Release|x64
-		{B0CAA9F3-F89A-40E2-9473-C47DA0CB1A4D}.Release|x64.Build.0 = Release|x64
-		{B0CAA9F3-F89A-40E2-9473-C47DA0CB1A4D}.Release|x64.Deploy.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

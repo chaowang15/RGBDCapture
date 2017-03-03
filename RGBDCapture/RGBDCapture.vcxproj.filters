@@ -3,7 +3,6 @@
   <ItemGroup>
     <ClInclude Include="global.h" />
     <ClInclude Include="RGBDSensor.h" />
-    <ClInclude Include="DataCompression.h" />
     <ClInclude Include="OpenNISensor.h" />
     <ClInclude Include="IntelRSSensor.h" />
     <ClInclude Include="Kinect2Sensor.h" />
@@ -11,7 +10,6 @@
   <ItemGroup>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="RGBDSensor.cpp" />
-    <ClCompile Include="DataCompression.cpp" />
     <ClCompile Include="OpenNISensor.cpp" />
     <ClCompile Include="IntelRSSensor.cpp" />
     <ClCompile Include="Kinect2Sensor.cpp" />
