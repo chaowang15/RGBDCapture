@@ -1,5 +1,5 @@
 # RGBDCapture
-This code is to capture RGB-D data with a depth cameras including OpenNI-drived devices (Kinect v1, Asus XTion, etc), Intel RealScene and Kinect v2. The RGB-D data will be output in local folder in PNG images.
+This code is to capture RGB-D data with a depth camera, including OpenNI-drived devices (Kinect v1, Asus XTion, etc), Intel RealScene and Kinect v2. The RGB-D data will be output in local folder in PNG images.
 
 This code is written in C++ and is tested successfully in Visual Studio 2013 in Windows and Ubuntu 14.04.
 
