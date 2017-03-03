@@ -33,3 +33,4 @@ where *-camera*:
 * Check the path of OPENNI2 driver files if the code cannot start.
 * The depth images are stored in TUM RGB-D data format. Refer to [TUM format RGB-D data] (http://vision.in.tum.de/data/datasets/rgbd-dataset/file_formats) for more details about how to use the RGB and depth images.
 * When using Kinect v2, two other kinds of images will also be captured: color-depth mapping images (containing each color pixel's depth values) and depth-color mapping images (containing each depth pixel's color values).
+* Another code [RGBDConverter] (https://github.com/chaowang15/RGBDConverter) can be used to convert the PNG sequence images to a single KLG log file and vice versa. See [ElasticFusion] (https://github.com/mp3guy/ElasticFusion) code for details about the detailed format.
