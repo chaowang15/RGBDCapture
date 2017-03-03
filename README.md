@@ -35,7 +35,7 @@ where *-camera*:
 
 ##Note
 * Press ESC to quit scanning.
-* The RGB-D data will be saved in a newly created folder named "saveX", where X is a number starting from 0.
+* The RGB-D data will be saved in a newly created folder named "saveX", where X is a counting number starting from 0.
 * Check the path of OPENNI2 driver files if the code cannot start.
 * The depth images are stored in TUM RGB-D data format. Refer to [TUM format RGB-D data] (http://vision.in.tum.de/data/datasets/rgbd-dataset/file_formats) for more details about how to use the RGB and depth images.
 * When using Kinect v2, two other kinds of images will also be captured: color-depth mapping images (containing each color pixel's depth values) and depth-color mapping images (containing each depth pixel's color values).
