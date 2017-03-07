@@ -27,14 +27,14 @@ Note to modify corresponding paths of dependencies.
 RGBDCapture [-camera]
 ```
 where *-camera*:
-* -kinect: Microsoft Kinect v1 (by default)
-* -asus: Asus XTion
-* -intel: Intel realscene
-* -kinect2: Microsoft Kinect v2
+* *-kinect*: Microsoft Kinect v1 (by default)
+* *-asus*: Asus XTion
+* *-intel*: Intel realscene
+* *-kinect2*: Microsoft Kinect v2
 
 ##Note
 * Press ESC to quit scanning.
 * The RGB-D data will be saved in a newly created folder named "saveX", where X is a counting number starting from 0.
 * Check the path of OPENNI2 driver files if the code cannot start.
 * When using Kinect v2, two other kinds of images will also be captured: color-depth mapping images (containing each color pixel's depth values) and depth-color mapping images (containing each depth pixel's color values).
-* Another code [RGBDConverter] (https://github.com/chaowang15/RGBDConverter) can be used to convert the PNG sequence images to a single KLG log file and vice versa. See [ElasticFusion] (https://github.com/mp3guy/ElasticFusion) code for details about the detailed format.
+* Another code [RGBDConverter] (https://github.com/chaowang15/RGBDConverter) can be used to convert the PNG sequence images to a single KLG log file and vice versa. The KLG format file is firstly used in another real-time RGB-D reconstruction platform [ElasticFusion] (https://github.com/mp3guy/ElasticFusion).
