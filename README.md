@@ -1,7 +1,7 @@
 # RGBDCapture
 This code is to capture RGB-D data into PNG images with a depth camera, including OpenNI-drived devices (Kinect v1, Asus XTion, etc), Intel RealScene and Kinect v2. The depth images are stored in [TUM RGB-D data format] (http://vision.in.tum.de/data/datasets/rgbd-dataset/file_formats).
 
-This code is written in C++ and is tested successfully in Visual Studio 2013 in Windows and Ubuntu 14.04.
+This code is written in C++ and is tested successfully in Visual Studio 2013 in Windows, Ubuntu 14.04 and Mac OS.
 
 ##Dependencies
 - OpenCV 2.4.X -- render and write images
