@@ -71,6 +71,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
+    <IncludePath>$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -100,13 +101,13 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_LIB;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(OPENCV_DIR)\include;$(OPENNI2_INCLUDE64);$(ZLIB_DIR)\include;$(BOOST_DIR);librealsense;$(KINECTSDK20_DIR)\inc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(OPENCV_DIR)\include;$(OPENNI2_INCLUDE64);$(ZLIB_DIR)\include;$(BOOST_ROOT);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>opencv_core249d.lib;opencv_imgproc249d.lib;opencv_highgui249d.lib;opencv_ml249d.lib;opencv_video249d.lib;opencv_features2d249d.lib;opencv_calib3d249d.lib;opencv_objdetect249d.lib;opencv_contrib249d.lib;opencv_legacy249d.lib;opencv_flann249d.lib;opencv_nonfree249d.lib;OpenNI2.lib;zdll.lib;realsense.lib;boost_filesystem-vc120-gd-1_55.lib;boost_system-vc120-gd-1_55.lib;kinect20.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(OPENCV_DIR)\x64\vc12\lib;$(OPENNI2_LIB64);$(ZLIB_DIR)\lib;$(BOOST_LIB);librealsense;$(KINECTSDK20_DIR)\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>opencv_core2411d.lib;opencv_imgproc2411d.lib;opencv_highgui2411d.lib;opencv_ml2411d.lib;opencv_video2411d.lib;opencv_features2d2411d.lib;opencv_calib3d2411d.lib;opencv_objdetect2411d.lib;opencv_contrib2411d.lib;opencv_legacy2411d.lib;opencv_flann2411d.lib;opencv_nonfree2411d.lib;OpenNI2.lib;zlib.lib;boost_filesystem-vc120-mt-gd-1_59.lib;boost_system-vc120-mt-gd-1_59.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(OPENCV_DIR)\x64\vc12\lib;$(OPENNI2_LIB64);$(ZLIB_DIR)\lib;$(BOOST_ROOT)\lib64-msvc-12.0;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -150,14 +151,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="global.h" />
-    <ClInclude Include="IntelRSSensor.h" />
-    <ClInclude Include="Kinect2Sensor.h" />
     <ClInclude Include="OpenNISensor.h" />
     <ClInclude Include="RGBDSensor.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="IntelRSSensor.cpp" />
-    <ClCompile Include="Kinect2Sensor.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="OpenNISensor.cpp" />
     <ClCompile Include="RGBDSensor.cpp" />

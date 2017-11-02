@@ -1,15 +1,11 @@
 #include "OpenNISensor.h"
-#include "IntelRSSensor.h"
-#include "Kinect2Sensor.h"
 
 void printUsage(){
 	cout << "Usage: " << endl
 		<< "   RGBDCapture [-camera]" << endl << endl;
 	cout << "-camera:" << endl
 		<< "   -kinect: Microsoft Kinect v1 (by default)" << endl
-		<< "   -asus: Asus XTion" << endl
-		<< "   -intel: Intel realscene (currently not supported)" << endl
-		<< "   -kinect2: Microsoft Kinect v2 (currently not supported)" << endl;
+		<< "   -asus: Asus XTion" << endl;
 }
 
 
@@ -30,14 +26,6 @@ int main(int argc, char** argv)
 	if (cameraType == "-kinect" || cameraType == "-asus")
 	{
 		sensor = new OpenNISensor();
-	}
-	else if (cameraType == "-intel")
-	{
-		sensor = new IntelRSSensor();
-	}
-	else if (cameraType == "-kinect2")
-	{
-		sensor = new Kinect2Sensor();
 	}
 	else
 	{
