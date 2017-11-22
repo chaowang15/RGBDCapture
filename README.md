@@ -4,6 +4,8 @@ This code is to capture RGB-D data into PNG images with an OpenNI-drived depth c
 
 This code is written in C++ and is tested successfully in Visual Studio 2013 in Windows and Ubuntu 14.04.
 
+An example of scanned images using Kinect v1: 
+
 ![Code interface](RGBDCapture/interface.png)
 
 ## Dependencies
@@ -31,7 +33,7 @@ No input options.
 
 ## Note
 * Press ESC to quit scanning.
-* The RGB-D data will be saved in a newly created folder named "saveX", where X is an index integer starting from 0.
+* The RGB-D data will be saved in a newly created folder named `saveX`, where `X` is an index integer starting from 0.
 * Check the path of OPENNI2 driver files if the code cannot start.
 * You can use another code of mine [RGBDConverter](https://github.com/chaowang15/RGBDConverter) to convert RGB-D images into a single compressed file in KLG format, which can be taken as input of [ElasticFusion](https://github.com/mp3guy/ElasticFusion) code.
 * This code doesn't give camera intrinsic parameters.
